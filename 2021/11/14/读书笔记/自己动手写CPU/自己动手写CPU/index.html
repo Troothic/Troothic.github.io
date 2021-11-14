@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, Troy">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="Troy">
+    <meta name="description" content="自己动手写CPU(MIPS)第一章 处理器与MIPS计算机的组成有三大部分：处理器、存储器、输入输出。指令集架构(ISA)：将编程所需要了解的硬件信息从硬件系统中抽象出来，即可面向ISA开发。ISA相当于设计规范，不同的微架构相当于具体实现">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Troy</title>
+    <title>Troy</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -442,7 +442,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-11-13
+                    2021-11-14
                 </div>
                 
 
@@ -463,20 +463,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+                <h1 id="自己动手写CPU-MIPS"><a href="#自己动手写CPU-MIPS" class="headerlink" title="自己动手写CPU(MIPS)"></a>自己动手写CPU(MIPS)</h1><h2 id="第一章-处理器与MIPS"><a href="#第一章-处理器与MIPS" class="headerlink" title="第一章 处理器与MIPS"></a>第一章 处理器与MIPS</h2><p>计算机的组成有三大部分：处理器、存储器、输入输出。<br>指令集架构(ISA)：将编程所需要了解的硬件信息从硬件系统中抽象出来，即可面向ISA开发。<br>ISA相当于设计规范，不同的微架构相当于具体实现。<br>因ISA不同，计算机分为CISC(复杂指令集计算机)和RISC(精简指令集计算机)<br>RISC和CISC的主要区别：CISC的每条指令对应的0、1编码穿长短不一，RISC的每条指令对应的0、1编码串长度是固定的。<br>主要的几种ISA：x86、ARM、SPARC、POWER、MIPS<br>RISC特点：指令长度固定、指令格式种类少、寻址方式少、大量使用寄存器，</p>
+<h2 id="第二章-可编程逻辑器件与Verilog-HDL"><a href="#第二章-可编程逻辑器件与Verilog-HDL" class="headerlink" title="第二章 可编程逻辑器件与Verilog HDL"></a>第二章 可编程逻辑器件与Verilog HDL</h2><p>![image-20210709195956077](D:\Typora\file picture\image-20210709195956077.png)<br>流程描述：<br>原理图输入：模块图形化设计<br>HDL文本输入：<br>硬件描述语言(Hardware Discription Language)<br>综合：将较高级抽象层次的设计描述自动化为较低层次描述的过程。产生电路网表。<br>布局布线：将综合产生的电路网表映射到具体的目标PLD器件，并产生最终可下载文件的过程。</p>
+<h2 id="第三章-教学版OpenMIPS处理器蓝图"><a href="#第三章-教学版OpenMIPS处理器蓝图" class="headerlink" title="第三章 教学版OpenMIPS处理器蓝图"></a>第三章 教学版OpenMIPS处理器蓝图</h2>
                 
             </div>
             <hr/>
@@ -502,7 +491,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/11/13/hello-world/">http://example.com/2021/11/13/hello-world/</a>
+                    <a href="http://example.com/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99CPU/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99CPU/">http://example.com/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99CPU/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99CPU/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -713,7 +702,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/C++/C++%20primer/">
+                <a href="/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/MIPS%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E6%80%BB%E7%BB%93/">
                     <div class="card-image">
                         
                         
@@ -747,16 +736,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/13/hello-world/">
+                <a href="/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99CPU/Verilog%E5%AD%A6%E4%B9%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -767,7 +756,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-14
                             </span>
                         <span class="publish-author">
                             
@@ -777,7 +766,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

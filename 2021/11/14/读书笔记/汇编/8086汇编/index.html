@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, Troy">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="Troy">
+    <meta name="description" content="8086汇编命令1.debug的R命令查看、改变CPU寄存器的内容
+2.D---查看内存中的内容
+3.E---改写内存的内容
+4.U---讲呢村中的机器指令翻译成汇编指令
+5.T---执行一条机器命令
+6.A---一汇编指令的形式输入一条机">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +22,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Troy</title>
+    <title>Troy</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +314,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -442,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-11-13
+                    2021-11-14
                 </div>
                 
 
@@ -463,20 +468,367 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+                <h1 id="8086汇编"><a href="#8086汇编" class="headerlink" title="8086汇编"></a>8086汇编</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><pre><code>1.debug的R命令查看、改变CPU寄存器的内容
+2.D---查看内存中的内容
+3.E---改写内存的内容
+4.U---讲呢村中的机器指令翻译成汇编指令
+5.T---执行一条机器命令
+6.A---一汇编指令的形式输入一条机器指令
+</code></pre>
+<h2 id="段寄存器和相应指针作用"><a href="#段寄存器和相应指针作用" class="headerlink" title="段寄存器和相应指针作用"></a>段寄存器和相应指针作用</h2><pre><code>1.CS:IP：指向内存单元的命令为指令————&gt;代码段
+2.SS:SP：栈指针指向位置————&gt;栈段
+3.DS：默认内存访问寄存器————&gt;数据段
+</code></pre>
+<h2 id="通过C-masm运行编译1-asm文件"><a href="#通过C-masm运行编译1-asm文件" class="headerlink" title="通过C:/masm运行编译1.asm文件"></a>通过C:/masm运行编译1.asm文件</h2><h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>![image-20210529223601988](D:\Typora\file picture\image-20210529223601988.png)</p>
+<pre><code>1.asm--编译--&gt;obj--连接--&gt;exe
+</code></pre>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><pre><code>链接内容：
+        1.同意源文件的不同部分
+        2.程序调用的某几个库文件的子程序，与该程序生成的目标文件连接到一起
+        3.连接程序处理源程序编译后存有机器码的目标文件为最终的可执行信息
+</code></pre>
+<p>![image-20210529225550284](D:\Typora\file picture\image-20210529225550284.png)</p>
+<p>![image-20210529230239517](D:\Typora\file picture\image-20210529230239517.png)</p>
+<h3 id="实验三"><a href="#实验三" class="headerlink" title="实验三"></a>实验三</h3><h3 id="编程、编译、连接、跟踪"><a href="#编程、编译、连接、跟踪" class="headerlink" title="编程、编译、连接、跟踪"></a>编程、编译、连接、跟踪</h3><h4 id="任务一：实验快照"><a href="#任务一：实验快照" class="headerlink" title="任务一：实验快照"></a>任务一：实验快照</h4><p>​                            编译文件</p>
+<p>![image-20210530105331561](D:\Typora\file picture\image-20210530105331561.png)</p>
+<p>​                            链接文件</p>
+<p>![image-20210530115733244](D:\Typora\file picture\image-20210530115733244.png)</p>
+<h3 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h3><pre><code>1.熟悉命令：
+        1）-r：查看寄存器
+        2）-t：执行一行命令
+                注：显式的为下一行命令
+        3）-a：以汇编指令的形式进行编辑
+</code></pre>
+<h4 id="任务二：debug追踪文件执行过程"><a href="#任务二：debug追踪文件执行过程" class="headerlink" title="任务二：debug追踪文件执行过程"></a>任务二：debug追踪文件执行过程</h4><pre><code>1.pop是先弹出数据再赋值sp+2
+2.push是先赋值sp-2，再进行压入数据
+        (sp)=(sp)-2
+        ....
+3.首指针放于栈内存最大处+1位置
+</code></pre>
+<h4 id="任务三：PSP"><a href="#任务三：PSP" class="headerlink" title="任务三：PSP"></a>任务三：PSP</h4><pre><code>1.程序加载位置：
+            1）ds中存放着程序所在内存区的段地址，且内存偏移地址为零
+            2）即ds=sa，PSP段地址为ds，
+            3）程序内存加载：PSP----程序
+            4）PSP用于dos和被加载程序通信
+</code></pre>
+<p>![image-20210531193443930](D:\Typora\file picture\image-20210531193443930.png)</p>
+<p>![image-20210531193621189](D:\Typora\file picture\image-20210531193621189.png)</p>
+<h2 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h2><p>一个二进制位为一个bit<br>字：记为”word”，16位二进制位为“字<br>字节：记为”byte”，8位二进制位为“字节””</p>
+<p>idata表示常量——&gt;mov ax,[1] &lt;=&gt; mov ax,[idata]<br>[bx]表示：</p>
+<blockquote>
+<p>1.例：mov ax,[bx]<br>(ax)=((ds)*16+(bx))=(ax)</p>
+</blockquote>
+<p>loop循环：[cx]操控着循环次数，先将[cx]减1，若[cx]不为零时，则执行标识位置代码；[cx]为零时，则向下执行。</p>
+<blockquote>
+<pre><code>   1.例：mov [cx],11
+      s: add [ax],[ax]
+       loop s
+   2.即：mov [cx],循环次数
+     s: 循环执行的程序段
+      loop s
+   注：汇编语言中，一个标号代表一个地址，程序中的s所标识的地址处执行        
+</code></pre>
+</blockquote>
+<p>命令：</p>
+<blockquote>
+<p>   例: -g 0012，指命令debug执行至0012处<br>   -p:指循环一次执行完，不再步步追踪循环内计算</p>
+</blockquote>
+<p>masm编译器和debug的区别:</p>
+<blockquote>
+<pre><code>   1.对[1]:debug为((ds)*16+1)
+           masm为1
+   2.汇编asm源程序写法[1]---&gt;ds:[1]，即应在偏移地址前，给出该内存的段地址
+</code></pre>
+</blockquote>
+<h3 id="实验四-bx-和loop的使用"><a href="#实验四-bx-和loop的使用" class="headerlink" title="实验四[bx]和loop的使用"></a>实验四[bx]和loop的使用</h3><p>1.传送</p>
+<blockquote>
+<p>   assume cs:codesg<br>   codesg segments<br>       mov ax,0H<br>       mov ds,ax<br>       mov bx,200H<br>       mov cx,64 ;0~63，共循环64次<br> s:    mov [bx],ax<br>       inc ax<br>       inc bx<br>       loop s<br>       mov ax,4c00H<br>       int 21H<br>   codesg ends<br>   end</p>
+</blockquote>
+<p>2.精简</p>
+<blockquote>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ax,20h			//</span><br><span class="line">	mov ds,ax			//初始化ds内存</span><br><span class="line">	mov bx,0h			//初始化bx遍历寄存器</span><br><span class="line">	mov cx,40h			//初始化循环次数,0~63,循环64次</span><br><span class="line">s:      mov ds:[bx],bl</span><br><span class="line">	inc [bx]</span><br><span class="line">	loop s</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br></pre></td></tr></table></figure>
+<p>   code ends<br>   end</p>
+</blockquote>
+<p>3.补全</p>
+<h2 id="第六章-包含多个段的程序"><a href="#第六章-包含多个段的程序" class="headerlink" title="第六章 包含多个段的程序"></a>第六章 包含多个段的程序</h2><h3 id="实验五-编写调试具有多个段的程序"><a href="#实验五-编写调试具有多个段的程序" class="headerlink" title="实验五 编写调试具有多个段的程序"></a>实验五 编写调试具有多个段的程序</h3><p>1.<br>![image-20210601170906726](D:\Typora\file picture\image-20210601170906726.png)</p>
+<p>![image-20210601172850150](D:\Typora\file picture\image-20210601172850150.png)</p>
+<p>2.![image-20210601201334213](D:\Typora\file picture\image-20210601201334213.png)</p>
+<p>数据段和栈段在程序加载后实际占据的空间都是以16个字节为单位的。程序中只给出了前两个字数据，其余空间都用0填充。</p>
+<p>如果段中数据位N个字节，程序加载后，该段实际占据空间为[N/16]*16个字节。</p>
+<p>3.![image-20210601204928801](D:\Typora\file picture\image-20210601204928801.png)</p>
+<p>![image-20210601205547944](D:\Typora\file picture\image-20210601205547944.png)</p>
+<p>4.如果不指名start入口，并且使用end替换end start，程序仍然可以执行。因为如果不指名入口，程序则从加载进内存的第一个单元起开始执行，但因为程序中有部分是作为数据使用的，如果不指明入口，CPU会把这些数值数据当成汇编指令执行，因此有必要通过start来指明入口。</p>
+<p>5.</p>
+<blockquote>
+<p>   assume cs:code<br>   a segment<br>     db 1,2,3,4,5,6,7,8<br>   a ends<br>   b segment<br>     db 1,2,3,4,5,6,7,8<br>   b ends<br>   c segment<br>     db 0,0,0,0,0,0,0,0<br>   c ends<br>   code segment<br>   start: mov ax,a<br>       mov ds,ax        //设置ds指向a<br>       mov ax,b<br>       mov es,ax        //设置es指向b<br>       mov ax,c<br>       mov ss,ax<br>       mov bx,0        //初始化计数移位<br>       mov cx,8            //循环8次<br>     s: mov al,ds:[bx]<br>       add al,es:[bx]<br>       mov ss:[bx],al<br>       inc bx<br>       loop s<br>       mov ax,4c00h<br>       int 21h<br>   code ends<br>   end start   </p>
+</blockquote>
+<p>6.</p>
+<blockquote>
+<pre><code>   assume cs:code,ss:b,ds:a
+   a segment
+      dw 1,2,3,4,5,6,7,8,9,0ah,0bh,0ch,0dh,0eh,0fh,0ffh
+   a ends
+   b segment
+      dw 0,0,0,0,0,0,0,0
+   b ends
+   code segment
+   start: mov ax,a
+       mov ds,ax            //设置内存寄存器指向a
+       mov ax,b
+       mov ss,ax            //设置栈
+       mov sp,16                  //设置栈指针
+       mov bx,0
+       mov cx,8
+     s: push[bx]
+       add bx,2
+       loop s
+       mov ax,4c00h
+       int 21h
+    code ends
+    end start
+</code></pre>
+</blockquote>
+<h2 id="第七章-更灵活的定位内存地址的方法"><a href="#第七章-更灵活的定位内存地址的方法" class="headerlink" title="第七章 更灵活的定位内存地址的方法"></a>第七章 更灵活的定位内存地址的方法</h2><p>1.and和or命令</p>
+<blockquote>
+<p>   and进行按位“与”运算<br>   例： mov al,01100011B<br>       and al,00111011B<br>       结果为al=00100011B<br>   or进行“或”运算<br>   例： mov al,01100011B<br>       or al,00111011B<br>       结果为al=01111011B</p>
+</blockquote>
+<p>2.ASCII码</p>
+<blockquote>
+<p>   1)a为61H、A为41H<br>   2）大写字母asc码总比小写字母大20H</p>
+</blockquote>
+<h3 id="实验六-实践课程中的程序"><a href="#实验六-实践课程中的程序" class="headerlink" title="实验六 实践课程中的程序"></a>实验六 实践课程中的程序</h3><p>7.9，将前四个字母变成大写</p>
+<blockquote>
+<p>   assume cs:codesg,ss:stacksg,ds:datasg<br>   stacksg segment<br>      dw 0,0,0,0,0,0,0,0<br>   stacksg ends<br>   datasg segment<br>      db ‘1. display                 ‘<br>      db ‘2. brows                  ‘<br>      db ‘3. replace                ‘<br>      db ‘4. modify                 ‘<br>   datasg ends<br>   codesg segment<br>      start: mov ax,datasg<br>          mov ds,ax<br>          mov ax,stacksg<br>          mov ss,ax<br>          mov sp,16<br>          mov bx,0<br>          mov cx,4<br>       s0: push cx<br>          mov si,0<br>          mov cx,4<br>        s: mov al,[bx+si+3]<br>          and al,11011111B<br>          mov [bx+si+3],al<br>          inc si<br>          loop s<br>          add bx,16<br>          pop cx<br>          loop s0</p>
+</blockquote>
+<h2 id="第八章-数据处理的两个基本问题"><a href="#第八章-数据处理的两个基本问题" class="headerlink" title="第八章 数据处理的两个基本问题"></a>第八章 数据处理的两个基本问题</h2><p>基本问题：</p>
+<blockquote>
+<p>1.处理的数据在什么地方<br>2.要处理的数据有多长</p>
+</blockquote>
+<p>1.整理:</p>
+<blockquote>
+<p>reg表示寄存器<br>sreg表示段寄存器</p>
+</blockquote>
+<blockquote>
+<p>ptr命令指定申请的空间大小:<br>           例: mov word ptr ds:[0],1</p>
+</blockquote>
+<blockquote>
+<p>push只进行字操作</p>
+</blockquote>
+<blockquote>
+<p>div除法指令:<br>           1.被除数:默认放在AX或DX和AX中(便于多位被除数存储)<br>               例: 计算186A1H除法<br>                  mov dx,1<br>                  mov ax,86a1<br>                  mov bx,100             //除数放在一个寄存器或内存中<br>                  div bx</p>
+</blockquote>
+<blockquote>
+<p>dd命令:用来定义dword(double word)型数据,占用两个字(四个字节)</p>
+</blockquote>
+<blockquote>
+<p>dup用来进行数据重复<br>           例: db 3 dup (0)<br>           定义了三个字节,表示db 0,0,0</p>
+</blockquote>
+<h3 id="实验七-寻址方式在结构化数据访问中的应用（有时间写-跑出来）"><a href="#实验七-寻址方式在结构化数据访问中的应用（有时间写-跑出来）" class="headerlink" title="实验七 寻址方式在结构化数据访问中的应用（有时间写+跑出来）"></a>实验七 寻址方式在结构化数据访问中的应用（有时间写+跑出来）</h3><blockquote>
+<pre><code>   assume cs:codesg
+   data segment
+       db &#39;1975&#39;,&#39;1976&#39;,&#39;1977&#39;,&#39;1978&#39;,&#39;1979&#39;,&#39;1980&#39;,&#39;1981&#39;,&#39;1982&#39;,&#39;1983&#39;
+       db &#39;1984&#39;,&#39;1985&#39;,&#39;1986&#39;,&#39;1987&#39;,&#39;1988&#39;,&#39;1989&#39;,&#39;1990&#39;,&#39;1991&#39;,&#39;1992&#39;
+       db &#39;1993&#39;,&#39;1994&#39;,&#39;1995&#39;    
+       dd 16,22,382,1356,2390,8000,16000,24486,50065,97479,140417,197514
+       dd 345980,590827,803530,1183000,1843000,2759000,3753000,4649000,
+         5937000
+       dw 3,7,9,13,28,38,130,220,476,778,1001,1442,2258,2793,4037,5635,8226
+       dw 11542,14430,15257,17800
+   data ends
+   table segment
+       db 21 dup (&#39; year summe ne ?? &#39;)
+   table ends
+   codesg segment
+   start :mov ax,data
+       mov ds,ax                        //初始化rseg
+       mov ax,table
+       mov es,ax
+       mov bx,0
+       mov dx,0    
+       mov si,0                        //年份等读入指针
+       mov bp,0                        //人数读入指针
+       mov cx,21
+     s0:mov ax,[si]
+       mov dx,[si+2]
+       mov es:[bx],ax
+       mov es:[bx+2],dx                        //写入年份
+       mov ax,[54H+si]
+       mov dx,[54H+si+2]
+       mov es:[bx+5],ax                    //写入收入低地址
+       mov es:[bx+7],dx                    //写入收入高地址
+       mov ax,[0A8H+bp]                    //读入雇员数
+       mov es:[bx+0AH],ax                    //写入雇员数
+       mov ax,[si]
+       div byte ptr es:[bx+0AH]
+       mov es:[bx+0DH],ax
+       add si,4                            //读指针移动
+       add bp,2                            //读指针移动
+       add bx,16
+       loop s0
+       mov ax,4c00H
+       int 21H
+   codesg ends
+   end start             
+</code></pre>
+</blockquote>
+<p>![image-20210604005035594](D:\Typora\file picture\image-20210604005035594.png)</p>
+<h2 id="第九章-转移命令的原理"><a href="#第九章-转移命令的原理" class="headerlink" title="第九章 转移命令的原理"></a>第九章 转移命令的原理</h2><p>1.操作符 offset</p>
+<blockquote>
+<pre><code>   功能：获得标号的偏移地址
+   例：mov ax,offset start        //指获得start的偏移地址
+</code></pre>
+</blockquote>
+<p>2.jmp指令<br>jmp需要给出两种信息：</p>
+<blockquote>
+<pre><code>   1)转移的目的地址
+   2）转移的距离(段间转移、段内短转移、段内近转移)
+   格式：a. jmp short 标号(转到表好处执行指令)
+             注：i.这种格式实现的是段内短转移，对ip修改范围为-128~127
+                ii.short指明此处为8位位移
+          b.jmp near ptr 标号
+               注：i.这种格式实现的是段内近转移，对ip修改范围为-32768~32767
+                  ii.near指明此处为16位位移
+</code></pre>
+</blockquote>
+<p>由底层机器语言说明，CPU在执行jmp指令时不需要转移的目的地址，就可以实现对IP的修改</p>
+<blockquote>
+<pre><code>           原理：转移指令没有告诉CPU要转移的目的地址，但告诉CPU要转移的位移
+</code></pre>
+</blockquote>
+<h3 id="实验八-image-20210604151101045-D-Typora-file-picture-image-20210604151101045-png"><a href="#实验八-image-20210604151101045-D-Typora-file-picture-image-20210604151101045-png" class="headerlink" title="实验八![image-20210604151101045](D:\Typora\file picture\image-20210604151101045.png)"></a>实验八![image-20210604151101045](D:\Typora\file picture\image-20210604151101045.png)</h3><p>![image-20210604151249934](D:\Typora\file picture\image-20210604151249934.png)</p>
+<p>![image-20210604152545657](D:\Typora\file picture\image-20210604152545657.png)</p>
+<h3 id="实验九"><a href="#实验九" class="headerlink" title="实验九"></a>实验九</h3><p>![image-20210604160657921](D:\Typora\file picture\image-20210604160657921.png)</p>
+<p>‘welcome to masm!’<br>77 65 6C 63 6F 6D 65 20 74 6F 20 6D 61 73 6D<br>绿色：| 22 02 | 77 02 | 65 02 | 6C 02 |63 02 |6F 02 |6D 02 |65 02 |20 02 |74 02 |6F 02 |20 02 |6D 02 |61 02 |73 02 |6D 02 | 22 02<br>绿底红色：| 22 24 | 77 24 | 65 24 | 6C 24 |63 24 |6F 24 |6D 24 |65 24 |20 24 |74 24 |6F 24 |20 24 |6D 24 |61 24 |73 24 |6D 24 | 22 24<br>白底蓝色：| 22 71 | 77 71 | 65 71 | 6C 71 |63 71 |6F 71 |6D 71 |65 71 |20 71 |74 71 |6F 71 |20 71 |6D 71 |61 71 |73 71 |6D 71 | 22 71</p>
+<p>实验asm—&gt;t82.asm</p>
+<h2 id="第十章-CALL和RET指令"><a href="#第十章-CALL和RET指令" class="headerlink" title="第十章 CALL和RET指令"></a>第十章 CALL和RET指令</h2><p>1.ret和retf</p>
+<blockquote>
+<p>   1)ret<br>       利用栈中数据更改ip内容，实现近转移<br>   2)retf<br>       利用栈中的数据，修改CS和IP的内容，从而实现远转移</p>
+</blockquote>
+<p>2.call指令</p>
+<blockquote>
+<pre><code>   操作：1)将当前的IP或CS和IP压入栈中
+          2）转移
+</code></pre>
+<p>注：ip总是在执行该道命令时，指向下一个命令</p>
+</blockquote>
+<p>3.offset返回标号的ip(偏移地址)</p>
+<p>4.利用call和ret来实现子程序，即call跳转至一定功能代码段，执行完后再通过ret命令返回call下一个命令执行<br>5.mul指令<br>mul是惩罚指令</p>
+<blockquote>
+<pre><code>       注：1)两个相乘的数，应都是8位或都是16位。若都是八位，一个默认放在al中，另一个放在&gt;        位reg或内存字节单元中；如果是16位，一个默认在ax中，另一个放在16位reg或字节内
+           存单元中。
+           2)结果：若是8位乘法，默认放在ax中；如果是16位乘法，结果高位默认在dx中存放，低
+           位在ax中存放
+</code></pre>
+</blockquote>
+<h3 id="实验十"><a href="#实验十" class="headerlink" title="实验十"></a>实验十</h3><p>1.显示字符串:show_str.asm![image-20210607165235703](D:\Typora\file picture\image-20210607165235703.png)<br>![image-20210607165204859](D:\Typora\file picture\image-20210607165204859.png)</p>
+<p>2.解决除法溢出的问题:divdw.asm(自己)、t102.asm(正确)<br>div指令：当进行8位除法时，用al存储结果的商，ah存储结果的余数；当进行16位除法的时候，用ax存储结果的商，dx存储结果的余数。</p>
+<p>![image-20210608101325704](D:\Typora\file picture\image-20210608101325704.png)</p>
+<p>3.数值显示:dtoc.asm</p>
+<p>![image-20210608142838667](D:\Typora\file picture\image-20210608142838667.png)</p>
+<p>![image-20210608143030173](D:\Typora\file picture\image-20210608143030173.png)</p>
+<p>打印部分：</p>
+<p>![image-20210608143100202](D:\Typora\file picture\image-20210608143100202.png)</p>
+<h3 id="课设一（待补）"><a href="#课设一（待补）" class="headerlink" title="课设一（待补）"></a>课设一（待补）</h3><h2 id="第十一章-标志寄存器"><a href="#第十一章-标志寄存器" class="headerlink" title="第十一章 标志寄存器"></a>第十一章 标志寄存器</h2><p>flag标志位：<br><strong>有的指令对标志寄存器没有影响，如mov、push、pop</strong><br>1.ZF标志位</p>
+<blockquote>
+<pre><code>       flag的第六位,零标志位，用来记录相关指令执行完后是否为零。
+       **如果为零，zf=1;否则zf=0**
+</code></pre>
+</blockquote>
+<p>2.PF标志位</p>
+<blockquote>
+<pre><code>       flag的第二位是PF，奇偶标志位，**用来记录所有比特位中1的个数是否为偶数**
+       **如果1的个数为偶数，pf=1;否则为0**
+</code></pre>
+</blockquote>
+<p>3.SF标志位</p>
+<blockquote>
+<pre><code>           flag的第七位是SF，符号标志位。**用来记录相关指令执行后，其结果是否为负。**
+           **如果结果为负，sf=1;如果非负，sf=0**
+                                                           
+           ![在这里插入图片描述](D:\Typora\file picture\20210115145901251.png)
+</code></pre>
+</blockquote>
+<p>![image-20210605223738169](D:\Typora\file picture\image-20210605223738169.png)</p>
+<p>4.CF标志</p>
+<blockquote>
+<pre><code>           flag的第零位是CF，进位标志位。一般情况下，在记录**无符号数**运算时，它记录了运算结果的
+           最高有效位向更高位的进位值，或从更高位的借位值
+</code></pre>
+</blockquote>
+<p>5.OF标志</p>
+<blockquote>
+<pre><code>               flag的第十一位是OF，溢出标志位。一般情况下，OF记录了**有符号数**运算的结果是否发生了
+               溢出。
+               **如果发生溢出，OF=1；如果没有，OF=0**
+</code></pre>
+</blockquote>
+<p>6.补码</p>
+<blockquote>
+<pre><code>           1）补码取反加1得原数得绝对值
+           2）原数取反加一得补码，
+           3）标识数正负看补码
+           5）正数补码为原码本身，负数补码为原码取反加一
+           例：F0H为-16的补码
+</code></pre>
+</blockquote>
+<p>7.adc指令</p>
+<blockquote>
+<pre><code>                           1）是带进位加法指令，利用到了CF位上记录的进位值
+</code></pre>
+</blockquote>
+<p>8.sbb指令</p>
+<blockquote>
+<pre><code>                           1）带借位减法指令，利用了CF位上记录的借位值
+</code></pre>
+</blockquote>
+<p>9.cmp指令</p>
+<blockquote>
+<pre><code>           1）cmp是比较指令，cmp的功能相当于减法指令，只是不保存结果
+</code></pre>
+</blockquote>
+<p>10.检测比较结果的条件转移指令<br>| 命令        | 含义    |  检测的相关标志位  |<br>| ——–   | —–:   | :—-: |<br>| je        | 或等于则转移 |   zf=1   |<br>| jne        | 不等于则转移 |   zf=0   |<br>| jb        | 低于则转移 |   cf=1   |<br>| jnb | 不低于则转移 | cf=0 |<br>| ja | 高于则转移 | cf=0且zf=0 |<br>| jna | 不高于则转移 | cf=1或 zf=1 |</p>
+<p>11.DF标志和传传送指令<br>df=0，每次操作后si和di递增<br>df=1，每次操作后si和di递减<br>cld指令：将标志寄存器的df位置0<br>std指令：将标志寄存器的df位置1</p>
+<blockquote>
+<p>   <em>传传送指令</em><br>   movsb指令：指将ds:si指向的内存单元中的<strong>字节</strong>送入es:di中，然后根据标志寄存器df位的<br>   值，将si和di递减或递增<br>   movsw指令：指将ds:si指向的内存单元中的<strong>字</strong>送入es:di中，然后根据标志寄存器df<br>   位的<br>   值，将si和di递减<strong>2</strong>或递增<strong>2</strong><br>   rep movsb<br>   功能：s:movsb<br>         loop s<br>   <strong>说明</strong>：<strong>rep</strong>是根据cx的值，重复执行后面的串传送指令。</p>
+</blockquote>
+<h3 id="实验十一"><a href="#实验十一" class="headerlink" title="实验十一"></a>实验十一</h3><p>![image-20210608155829154](D:\Typora\file picture\image-20210608155829154.png)</p>
+<h2 id="第十二章-内中断"><a href="#第十二章-内中断" class="headerlink" title="第十二章 内中断"></a>第十二章 内中断</h2><h3 id="实验十二"><a href="#实验十二" class="headerlink" title="实验十二"></a>实验十二</h3><p>编写0号中断的处理程序：t12.asm<br>中断过程分析：</p>
+<blockquote>
+<pre><code>   1.中断过程：中断类型码-----&gt;中断向量表-------&gt;中断处理程序
+   2.程序t12.asm:
+   1）当产生除法溢出时，产生0号中断信息，从而引发中断过程
+       a.取得中断类型码
+       b.标志寄存器入栈，TF、IF设置为0
+       c.cs、ip入栈
+       d.(IP)=(0*4),(cs)=(0*4+2)
+   2）总结
+       a.相关处理
+       b.向显示缓冲区送字符串
+       c.返回DOS
+</code></pre>
+</blockquote>
+<p>![image-20210608185358625](D:\Typora\file picture\image-20210608185358625.png)</p>
+<p>![image-20210608185735283](D:\Typora\file picture\image-20210608185735283.png)</p>
+<p>![image-20210608190831563](D:\Typora\file picture\image-20210608190831563.png)</p>
+<h2 id="第十三章-int指令"><a href="#第十三章-int指令" class="headerlink" title="第十三章 int指令"></a>第十三章 int指令</h2><p>1.int 指令</p>
+<blockquote>
+<p>   格式：int n<br>       n为中断类型码<br>       中断处理程序简称中断例程，可作为功能提供给程序，也可以自己写<br>       iret和int指令配合使用，和call与ret的组合相类似，在cpu执行nt指令进入中断例程之前，<br>       标志寄存器、当前的CS和IP被压入栈中，在执行完中断例程后，应该用iret指令恢复int执<br>       行前的标志寄存器和CS、IP的值，从而继续执行应用程序</p>
+</blockquote>
+<h3 id="实验十三（补）"><a href="#实验十三（补）" class="headerlink" title="实验十三（补）"></a>实验十三（补）</h3><h2 id="第十四章"><a href="#第十四章" class="headerlink" title="第十四章"></a>第十四章</h2><h3 id="实验十四（补）"><a href="#实验十四（补）" class="headerlink" title="实验十四（补）"></a>实验十四（补）</h3><h2 id="第十五章-外中断"><a href="#第十五章-外中断" class="headerlink" title="第十五章 外中断"></a>第十五章 外中断</h2><p>1.外设的输入<strong>不直接</strong>送入内存和CPU，而是送入相关的接口芯片的端口中；CPU向外设的输出也不是直接送入外设，而是先送入<strong>端口</strong>中，再由相关的芯片送到外设。<br>2.外中断：</p>
+<ul>
+<li><p>可屏蔽中断：CPU是否响应可屏蔽中断，要看标志寄存器的IF的设置。当IF=1，则CPU在执行完当前指令后想用中断，引发中断进程；如果IF=0，则不响应可屏蔽中断。</p>
+<blockquote>
+<p>   设置IF指令：<br>   sti，设置IF=1<br>   cli，设置IF=0</p>
+</blockquote>
+</li>
+<li><p>不可屏蔽中断</p>
+</li>
+</ul>
+<p>3.PC机键盘的处理过程</p>
+<blockquote>
+<p>   1）键盘输入：<br>             a.通码：按下一个键时产生的扫描码<br>             b.断码：松开一个键时产生的扫描码<br>             断码=通码+80h<br>   2）引发9号中断<br>   3）执行iint 9中断例程</p>
+</blockquote>
+<h3 id="实验十五（补）"><a href="#实验十五（补）" class="headerlink" title="实验十五（补）"></a>实验十五（补）</h3><h2 id="第十六章-直接定址表"><a href="#第十六章-直接定址表" class="headerlink" title="第十六章 直接定址表"></a>第十六章 直接定址表</h2><h2 id="第十七章-使用BIOS进行键盘输入和磁盘读写"><a href="#第十七章-使用BIOS进行键盘输入和磁盘读写" class="headerlink" title="第十七章 使用BIOS进行键盘输入和磁盘读写"></a>第十七章 使用BIOS进行键盘输入和磁盘读写</h2>
                 
             </div>
             <hr/>
@@ -502,7 +854,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/11/13/hello-world/">http://example.com/2021/11/13/hello-world/</a>
+                    <a href="http://example.com/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%B1%87%E7%BC%96/8086%E6%B1%87%E7%BC%96/">http://example.com/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%B1%87%E7%BC%96/8086%E6%B1%87%E7%BC%96/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -713,7 +1065,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/C++/C++%20primer/">
+                <a href="/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%B1%87%E7%BC%96/x86%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%BB%8E%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
@@ -747,16 +1099,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/13/hello-world/">
+                <a href="/2021/11/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/C++/%E7%BB%83%E4%B9%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -767,7 +1119,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-14
                             </span>
                         <span class="publish-author">
                             
@@ -777,7 +1129,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
